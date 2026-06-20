@@ -1,0 +1,321 @@
+ 
+ 
+MODUL PRAKTIKUM 14 
+
+Grafik, BLOB Gambar, Import Data Excel, dan 
+Deploy Aplikasi 
+
+A.  Tujuan Praktikum  
+
+1.  Menampilkan Grafik.  
+2.  Menampilkan Gambar dan Menginput Gambar ke dalam Database. 
+3.  Upload Data dari File Excel ke dalam Database. 
+4.  Mendeploy Aplikasi. 
+
+B.  Alat dan Bahan  
+  SQL Server  
+  SQL Server Management Studio (SSMS)  
+  Visual Studio (Minimal 2019 dengan .NET Framework)  
+  C# Windows Forms (WinForms) 
+
+C.  Langkah-Langkah Praktikum 
+
+Setup Awal 
+
+1.  Instal terlebih dahulu Inno Setup Compiler. 
+
+2.  Tambahkan Kolom Foto pada Tabel Mahasiswa. 
+
+3.  Ubah Stored Procedure Read, Insert, dan Update Mahasiswa 
+
+a.  Stored Procedure Read 
+
+ 
+ 
+b.  Stored Procedure Insert 
+
+c.  Stored Procedure Update 
+
+ 
+ 
+ 
+ 
+ 
+4.  Tambahkan Stored Procedure untuk Chart 
+
+5.  Tambahkan Package ExcelDataReader untuk membaca data dari Excel kedalam Project 
+
+a.  Klik kanan pada proyek di Solution Explorer. 
+
+b.  Pilih “Manage NuGet Packages…” dari menu konteks. 
+
+ 
+ 
+c.  Di jendela NuGet Package Manager, pilih tab "Browse". 
+
+d.  Ketik “ExcelDataReader” di kotak pencarian. 
+
+e.  Dari hasil pencarian, pilih “ExcelDataReader”. 
+
+f.  Klik tombol “Install” dan ikuti prompt untuk menyelesaikan instalasi. 
+
+g.  Visual Studio mungkin meminta untuk meninjau perubahan dan menerima lisensi paket. 
+
+ 
+ 
+h.  Klik "OK" atau "I Accept" atau "Apply" untuk menyelesaikan proses instalasi. 
+
+i. 
+
+Jika instalasi ExcelDataReader selesai, lakukan langkah f - h untuk ExcelDataReader.DataSet. 
+
+Modifikasi Aplikasi 
+
+6.  Buat Class Baru, dengan untuk Database Arsitektur Logic 
+
+a.  Klik kanan pada nama project 
+
+b.  Pilih Add, kemudian klik Class.. 
+
+c.  Beri nama DAL. 
+
+ 
+ 
+d.  Pindahkan code terkait logic database dari Form yang telah ada kedalam DAL 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+7.  Buat Form Baru untuk Dashboard 
+
+8.  Tambahkan Code berikut pada class Form Dashboard 
+
+9.  Tambahkan code pada constuktor dashboard. 
+
+ 
+ 
+ 
+ 
+10.  Tambahkan method loadDataChart() 
+
+ 
+ 
+11.  Tambahkan Event SelectedValueChanged pada cmbTipe, dan isi event dengan code berikut. 
+
+12.  Tambahkan Event Clik pada button, dan isi event dengan code berikut. 
+
+a.  Button Load 
+
+b.  Button Reset 
+
+c.  Button Data Mahasiswa 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+13.  Ubah Design Halaman Data Mahasiswa 
+
+NB : 
+
+Atas button upload gambar adalah PictureBox. 
+
+14.  Ubah Code pada beberapa Method dan Event dengan memanfaatkan Class DAL. 
+
+a.  Tambahakan object untuk mendeklasrasikan class DAL. 
+
+ 
+ 
+ 
+ 
+b.  Ubah code pada Method HitungTotal, LoadData, ClearForm, dan simpanLog 
+
+ 
+ 
+c.  Ubah code pada Event Click 
+
+ 
+ 
+ 
+ 
+ 
+ 
+d.  Ubah code pada Event DataGrid 
+
+ 
+ 
+e.  Tambahakan  event  Clik,  pada  Button  yang  baru  ditambahkan  ke  dalam  Form.  Kemudian 
+
+tambahkan code berikut untuk masing-masing event. 
+
+ 
+ 
+ 
+15.  Tambahakan object untuk mendeklasrasikan class DAL pada Form RekapMahasiswa 
+
+.
+
+ 
+ 
+ 
+ 
+16.  Ubah Construktor Report 
+
+17.  Ubah    Class  Program,  agar  ketika  diJalankan  Form  yang  pertama  kali  muncul  adalah  Form 
+
+Dashboard 
+
+ 
+ 
+ 
+ 
+Deploy Aplikasi 
+
+18.  Cofigurasi Server SQL agar bisa diakses secara public dalam satu jaringan yang sama. 
+
+a.  Buka SQL Sever Configuration Manager 
+
+b.  Pada bagian SQL Server Configuration, double klik TCP/IP Server. 
+
+c.  Ubah protocol, pada bagian enable dari No ke Yes, kemudian Apply dan Ok 
+
+19.  Menggubah konfigurasi string koneksi pada SqlConnection : 
+
+ 
+ 
+ 
+ 
+a.  Tambahkan Function untuk mengambil IPAddress Server pada class DAL 
+
+b.  Ubah string connection pada class DAL 
+
+20.  Membuat release aplikasi 
+
+a.  Ganti mode debug menjadi release 
+
+b.  Build solustion 
+
+c.  Cek pada folder project hasil release aplikasi  
+
+  Lokasi path : [localdisk]\[namaproject]\[namaproject]\bin\release 
+
+  Contoh : 
+
+ 
+ 
+ 
+ 
+ 
+ 
+21.  Membuat setup aplikasi menggunakan Inno Setup Compiler 
+
+a.  Buka Inno Setup Compiler 
+
+b.  Pilih “create a new script file using the Script Wizard”, kemudian klik ok 
+
+c.  Klik next 
+
+ 
+ 
+ 
+ 
+d.  Lengkapi informasi terkait aplikasi yang akan diinstal, untuk pengisian bebas, kemudian klik 
+
+next 
+
+e.  Tentukan  lokasi  penginstalan  aplikasi  dan  apakah  pengguna  boleh  merubah  lokasi 
+
+penginstalan.  Jika  ingin  menginstal  pada  folder  program  file  dan  pengguna  diizinkan 
+
+melakukan perubahan lokasi penginsatalan, klik next 
+
+ 
+ 
+ 
+f.  Pilih file hasil release aplikasi, untuk menjadi main aplikasi, dan tambahkan folder release 
+
+serta file design reportviewer, agar seluruh package yang dibutuhkan aplikasi diinstal ke dalam 
+
+folder instalasi aplikasi. 
+
+g.  Tentukan nama aplikasi yang akan dibuat 
+
+ 
+ 
+h.  Konfigurasi apakah user nanti dapat membuat file shortcuts aplikasi atau tidak 
+
+i. 
+
+Jika  ada  sertifikat  yang  harus  diinstal  pada  aplikasi  silahkan  tambahkan  pada  bagian 
+
+application documentation 
+
+ 
+ 
+j.  Tentukan mode instalasi yang akan dilakukan pada setup aplikasi kalian 
+
+k.  Jika kalian memiliki registry keys pada aplikasi yang akan dideploy, silahkan menambahakan 
+
+apa bagian berikut, dan atur proses uninstal aplikasi kalian pada bagian berikut 
+
+ 
+ 
+l.  Pilih bahasa apa saja yang dapat digunakan pada proses instalasi 
+
+m.  Konfigurasi lokasi, nama, dan icon untuk membuat setup aplikasi, jika tidak ada yang ingin 
+
+diubah klik next 
+
+ 
+ 
+n.  Pilih mode tampilan setup 
+
+o.  Klik next pada bagian Inno Setup Prepoccess 
+
+ 
+ 
+p.  Klik finish untuk melanjutakan proses pembuatan skrip setup 
+
+q.  Jika kalian ingin langsung membuat setup klik yes dan simpan file skrip yang telah dibuat. 
+
+Jika kalian ingin mengubah skrip compiler, klik no 
+
+r.  Jika hasil compiler setup sudah selesai, silahkan buka folder lokasi setup dibuat 
+
+  Status compiler selesai 
+
+ 
+ 
+ 
+ 
+ 
+  Hasil file setup 
+
+s.  Jika kalian telah selesai mengubah skrip atau ada perubahan pada release aplikasi dan ingin 
+
+menjalankan compiler setup, klik logo compiler 
+
+t. 
+
+Jalankan  setup,  jika  sudah  selesai  buka  folder  tempat  instalasi  aplikasi,  pastikan  semua 
+
+package telah terinstal dan file design reportviewer telah copy 
+
+ 
+ 
+ 
+ 
+
